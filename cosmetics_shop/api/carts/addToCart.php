@@ -2,8 +2,8 @@
     session_start();
 
     // Inclure la connexion à la base de données
-    if (file_exists('../config/dbConnect.php')) {
-        require '../config/dbConnect.php';
+    if (file_exists('../../../config/dbConnect.php')) {
+        require '../../../config/dbConnect.php';
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Fichier de configuration introuvable']);
         exit;

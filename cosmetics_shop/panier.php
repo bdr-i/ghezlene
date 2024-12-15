@@ -132,7 +132,7 @@ mysqli_close($link);
         function removeFromCart(productId) {
             if (confirm("Êtes-vous sûr de vouloir supprimer ce produit ?")) {
                 $.ajax({
-                    url: 'update_cart.php',
+                    url: 'api/carts/updateCart.php',
                     method: 'POST',
                     data: { product_id: productId, remove: true },
                     success: function(response) {

@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once '../config/dbConnect.php';
+    require_once '../../../config/dbConnect.php';
 
     if (isset($_POST['product_id'])) {
         $productId = (int)$_POST['product_id'];
