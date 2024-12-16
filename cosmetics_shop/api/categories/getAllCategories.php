@@ -5,10 +5,18 @@
     require '../../../config/dbConnect.php';
 
     // Récupération des catégories et sous-catégories
-    $query = "SELECT c.id AS category_id, c.category_name, 
-            s.id AS subcategory_id, s.subcategory_name 
-            FROM categories c 
-            LEFT JOIN subcategories s ON c.id = s.category_id";
+    $query = "SELECT 
+                    c.id AS category_id, 
+                    c.category_name, 
+                    s.id AS subcategory_id, 
+                    s.subcategory_name
+                FROM 
+                    categories c
+                LEFT JOIN 
+                    subcategories s 
+                ON 
+                    c.id = s.category_id;";
+
 
     $result = mysqli_query($link, $query);
     $categories = [];
@@ -18,6 +26,7 @@
             $category_id = $row['category_id'];
             if (!isset($categories[$category_id])) {
                 $categories[$category_id] = [
+                    'id' => $category_id,
                     'name' => $row['category_name'],
                     'subcategories' => []
                 ];

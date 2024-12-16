@@ -20,7 +20,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link" href="../../index.php">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../admin.html">Accueil</a></li>
                     <li class="nav-item"><a class="nav-link" href="ajout_produit.php">Ajouter un Produit</a></li>
                     <li class="nav-item"><a class="nav-link" href="../liste_produits.php">Liste des Produits</a></li>
                 </ul>

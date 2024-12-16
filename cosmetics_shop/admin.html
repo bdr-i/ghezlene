@@ -17,6 +17,8 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item"><a class="nav-link" href="products/add_product/ajout_produit.php">Ajouter un Produit</a></li>
                         <li class="nav-item"><a class="nav-link" href="products/liste_produits.php">Liste des Produits</a></li>
+                        <li class="nav-item"><a class="nav-link" href="products/categories/categoriesList.html">Liste des catégories</a></li>
+                        <li class="nav-item"><a class="nav-link" href="products/order/orderList.html">Liste des Commandes</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="productsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Produits</a>
                             <div class="dropdown-menu" aria-labelledby="productsDropdown">
@@ -70,6 +72,25 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-header">Produits les mieux notés</div>
+                        <div class="card-body">
+                            <canvas id="top-rated-products-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-header">Produits les plus vendus</div>
+                        <div class="card-body">
+                            <canvas id="top-sold-products-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </main>
 
         <footer class="text-center">
@@ -127,6 +148,134 @@
                     }
                 });
             }
+            document.addEventListener("DOMContentLoaded", function() {
+            getProductData();
+            getUserData();
+            getTopRatedProducts();
+            getTopSoldProducts();
+        });
+
+        function getUserData() {
+            // Requête AJAX pour obtenir les données des utilisateurs
+            $.ajax({
+                url: "api/users/getAllUsers.php",
+                type: "GET",
+                success: function(response) {
+                    const data = JSON.parse(response);
+                    const totalUsers = data.length;
+                    document.getElementById("total-users").textContent = totalUsers;
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        function getProductData() {
+            // Requête AJAX pour obtenir les données des produits
+            $.ajax({
+                url: "api/products/getAllProducts.php",
+                type: "GET",
+                success: function(response) {
+                    const data = JSON.parse(response);
+                    const totalProducts = data.length;
+                    let outOfStock = 0;
+                    for (let i = 0; i < data.length; i++) {
+                        if (data[i].stock === 0) {
+                            outOfStock++;
+                        }
+                    }
+                    document.getElementById("total-products").textContent = totalProducts;
+                    document.getElementById("out-of-stock").textContent = outOfStock;
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        function getTopRatedProducts() {
+            // Requête AJAX pour obtenir les produits les mieux notés
+            $.ajax({
+                url: "api/products/getTopRatedProducts.php", // Cette URL doit renvoyer les produits avec les notes
+                type: "GET",
+                success: function(response) {
+                    const data = JSON.parse(response);
+                    const labels = data.map(item => item.name);
+                    const ratings = data.map(item => item.average_rating);
+
+                    const ctx = document.getElementById("top-rated-products-chart").getContext("2d");
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Note moyenne (sur 5)',
+                                data: ratings,
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 5
+                                }
+                            }
+                        }
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        function getTopSoldProducts() {
+            // Requête AJAX pour obtenir les produits les plus vendus
+            $.ajax({
+                url: "api/products/getTopSoldProducts.php", // Cette URL doit renvoyer les produits les plus vendus
+                type: "GET",
+                success: function(response) {
+                    console.log(response);
+                    const data = JSON.parse(response);
+                    const labels = data.map(item => item.name);
+                    const sales = data.map(item => item.total_sales);
+
+                    const ctx = document.getElementById("top-sold-products-chart").getContext("2d");
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Quantité vendue',
+                                data: sales,
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+
         </script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     </body>
 </html>

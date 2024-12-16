@@ -41,9 +41,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link" href="../index.php">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../admin.html">Accueil</a></li>
                     <li class="nav-item"><a class="nav-link" href="add_product/ajout_produit.php">Ajouter un Produit</a></li>
                     <li class="nav-item"><a class="nav-link" href="liste_produits.php">Liste des Produits</a></li>
+                    <li class="nav-item"><a class="nav-link" href="categories/categoriesList.html">Liste des catégories</a></li>
+                        <li class="nav-item"><a class="nav-link" href="order/orderList.html">Liste des Commandes</a></li>
                 </ul>
             </div>
         </div>

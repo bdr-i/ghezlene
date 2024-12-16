@@ -167,4 +167,5 @@ mysqli_close($link);
         </form>
     </main>
     </body>
+    <script src="script.js"></script>
 </html>
