@@ -1,0 +1,14 @@
+.no-results {
+    color: #ff0000;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.border-danger {
+    border: 2px solid red !important;
+}
+.badge-danger {
+    background-color: red;
+    color: white;
+}
