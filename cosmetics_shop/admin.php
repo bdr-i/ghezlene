@@ -23,23 +23,6 @@
                         <li class="nav-item"><a class="nav-link" href="products/categories/categoriesList.php">Liste des catégories</a></li>
                         <li class="nav-item"><a class="nav-link" href="products/order/orderList.php">Liste des Commandes</a></li>
                         <li class="nav-item"><a class="nav-link" href="users/gestionUsers/userList.php">Liste des Utilisateurs</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="productsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Produits</a>
-                            <div class="dropdown-menu" aria-labelledby="productsDropdown">
-                                <h6 class="dropdown-header">Maquillage</h6>
-                                <a class="dropdown-item" href="rouge-a-levres.html">Rouge à Lèvres</a>
-                                <a class="dropdown-item" href="fonds-de-teint.html">Fonds de Teint</a>
-                                <a class="dropdown-item" href="mascara.html">Mascara</a>
-                                <div class="dropdown-divider"></div>
-                                <h6 class="dropdown-header">Parfums</h6>
-                                <a class="dropdown-item" href="feminin.html">Parfums Féminins</a>
-                                <a class="dropdown-item" href="masculin.html">Parfums Masculins</a>
-                                <div class="dropdown-divider"></div>
-                                <h6 class="dropdown-header">Soins</h6>
-                                <a class="dropdown-item" href="serum.html">Sérum</a>
-                                <a class="dropdown-item" href="creme.html">Crème Hydratante</a>
-                            </div>
-                        </li>
                         <a href="users/logout.php" class="btn btn-outline-danger ml-3">Se déconnecter</a>
                     </ul>
                 </div>

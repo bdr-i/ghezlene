@@ -59,9 +59,6 @@ $(document).ready(function () {
                                 <td>${commande.status}</td>
                                 <td>
                                     <button class="btn btn-info view-details" data-id="${commande.order_id}">Voir les détails</button>
-                                    ${commande.status.toLowerCase() === 'pending' ?  `
-                                    <button class="btn btn-primary update-status" data-id="${commande.order_id}" data-status="${commande.status}">Annuler la commande</button>
-                                    ` : ''}
                                 </td>
                             </tr>
                         `);
@@ -78,19 +75,6 @@ $(document).ready(function () {
                 $('.view-details').off('click').on('click', function () {
                     const orderId = $(this).data('id');
                     loadOrderDetails(orderId);
-                });
-
-                $('.update-status').off('click').on('click', function () {
-                    console.log('Annuler la commande');
-                    const orderId = $(this).data('id');
-                    const currentStatus = $(this).data('status');
-                    if (currentStatus !== 'Annulé') {
-                        if (confirm('Êtes-vous sûr de vouloir annuler cette commande ?')) {
-                        updateOrderStatus(orderId, 'Cancelled');
-                        }
-                    } else {
-                        alert('Cette commande est déjà annulée.');
-                    }
                 });
             },
             error: function () {

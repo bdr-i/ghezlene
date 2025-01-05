@@ -11,9 +11,9 @@ if (file_exists('../../config/dbConnect.php')) {
 
 $product = null;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
-    $productId = filter_var($_POST['id'], FILTER_VALIDATE_INT);
-    
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
+    $productId = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+
     if ($productId) {
         $query = "SELECT * FROM products WHERE id = ?";
         $stmt = mysqli_prepare($link, $query);
@@ -29,10 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
             exit;
         }
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'ID invalide']);
+        echo "<p>ID invalide</p>";
         exit;
     }
 }
+
 
 mysqli_close($link);
 ?>

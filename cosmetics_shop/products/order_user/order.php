@@ -4,7 +4,7 @@
     $loggedIn = isset($_SESSION['user']);
     if (!$loggedIn) {
         echo '<div class="alert alert-danger">Vous n\'êtes pas autorisé à accéder à cette page</div>';
-        echo '<a href="users/login.php" class="btn btn-primary">Se connecter</a>';
+        echo '<a href="../../users/login.php" class="btn btn-primary">Se connecter</a>';
         exit;
     }
 ?>
@@ -72,17 +72,6 @@
 
         <main class="container">
             <h1 class="text-center mt-4">Liste des Commandes</h1>
-
-            <!-- Filtre par statut -->
-            <div class="form-group">
-                <label for="statusFilter">Filtrer par statut :</label>
-                <select class="form-control" id="statusFilter">
-                    <option value="tous">Tous</option>
-                    <option value="Pending">En cours</option>
-                    <option value="Completed">Terminée</option>
-                    <option value="Cancelled">Annulée</option>
-                </select>
-            </div>
 
             <table class="table table-striped mt-4">
                 <thead>

@@ -250,6 +250,8 @@
                                         data-quantity="${product.stock}">
                                         Ajouter au panier
                                     </button>
+                                    <a href="products/details.php?id=${product.id}" class="btn btn-link">Voir plus</a>
+
                                 </div>
                             </div>
                         </div>`;
