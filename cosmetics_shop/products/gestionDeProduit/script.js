@@ -186,3 +186,61 @@ document.getElementById("editProductForm").addEventListener("submit", function (
         })
         .catch((error) => console.error('Erreur lors de la modification du produit :', error));
 });
+
+function filtrerProduitsRuptureStock(){
+    fetchProducts().then((products) => {
+        const productsOutOfStock = products.filter(product => product.stock == 0);
+        renderProducts(productsOutOfStock, "Produits en rupture de stock", productsOutOfStock.length);
+    });
+}
+
+function rechercherParStockMinEtMax() {
+    const stockMinInput = document.getElementById("stockMin").value;
+    const stockMaxInput = document.getElementById("stockMax").value;
+
+    const stockMin = stockMinInput !== "" ? parseInt(stockMinInput) : null;
+    const stockMax = stockMaxInput !== "" ? parseInt(stockMaxInput) : null;
+
+    if ((stockMin !== null && isNaN(stockMin)) || (stockMax !== null && isNaN(stockMax))) {
+        alert("Veuillez saisir des valeurs numériques valides pour les stocks min et/ou max.");
+        return;
+    }
+
+    if (stockMin !== null && stockMax !== null && stockMin > stockMax) {
+        alert("Le stock minimum ne peut pas être supérieur au stock maximum.");
+        return;
+    }
+
+    fetchProducts().then((products) => {
+        const productsInStockRange = products.filter(product => {
+            if (stockMin !== null && stockMax !== null) {
+                return product.stock >= stockMin && product.stock <= stockMax;
+            } else if (stockMin !== null) {
+                return product.stock >= stockMin;
+            } else if (stockMax !== null) {
+                return product.stock <= stockMax;
+            }
+            return true; // Aucun filtre spécifié, retourner tous les produits
+        });
+
+        renderProducts(
+            productsInStockRange,
+            "Produits filtrés selon les critères de stock",
+            productsInStockRange.length
+        );
+    });
+}
+function rechercherParNom() {
+    console.log("Recherche par nom");
+    const searchInput = document.getElementById("searchProduct").value.trim().toLowerCase();
+
+    fetchProducts().then((products) => {
+        const productsByName = products.filter(product =>
+            product.name.toLowerCase().includes(searchInput)
+        );
+        renderProducts(productsByName, "Produits trouvés par nom", productsByName.length);
+    });
+}
+
+// Ajout de l'événement
+document.getElementById("searchProduct").addEventListener("input", rechercherParNom);

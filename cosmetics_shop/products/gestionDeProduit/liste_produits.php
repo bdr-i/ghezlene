@@ -29,8 +29,7 @@
                     <li class="nav-item"><a class="nav-link" href="../order/orderList.php">Liste des Commandes</a></li>
                     <!-- Barre de recherche -->
                     <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Rechercher">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
+                        <input id="searchProduct" class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Rechercher">
                     </form>
                 </ul>
             </div>
@@ -43,28 +42,17 @@
         </div>
 
         <div class="row mb-3">
-            <!-- Rechercher par stock minimum -->
-            <div class="col-md-6">
-                <label for="stockSearch" class="form-label">Rechercher par stock minimum :</label>
+            <div class="col-md-12">
+                <label class="form-label">Rechercher par stock :</label>
                 <div class="input-group">
-                    <input type="number" id="stockSearch" class="form-control" placeholder="Entrez une quantité">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" onclick="rechercherParStock()">Rechercher</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Rechercher par stock maximum -->
-            <div class="col-md-6">
-                <label for="maxStockSearch" class="form-label">Rechercher par stock maximum :</label>
-                <div class="input-group">
-                    <input type="number" id="maxStockSearch" class="form-control" placeholder="Entrez une quantité">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" onclick="rechercherParMaxStock()">Rechercher</button>
-                    </div>
+                    <input type="number" id="stockMin" class="form-control" placeholder="Stock minimum" aria-label="Stock minimum">
+                    <input type="number" id="stockMax" class="form-control" placeholder="Stock maximum" aria-label="Stock maximum">
+                    <button class="btn btn-primary" onclick="rechercherParStockMinEtMax()">Rechercher</button>
                 </div>
             </div>
         </div>
+
+
 
         <h2>Liste des Produits</h2>
         <div id="productCount" class="mb-4"></div>
