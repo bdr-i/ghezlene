@@ -51,19 +51,16 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => response.text()) // Utiliser .text() pour déboguer
         .then(rawData => {
-            console.log('Réponse brute :', rawData); // Affichez la réponse brute
+            window.location.href = './categoriesList.php';
             let data;
             try {
-                data = JSON.parse(rawData); // Parsez la réponse si possible
-                if (data.success) {
-                    alert('Catégorie et sous-catégories ajoutées avec succès.');
-                    form.reset();
-                    document.querySelectorAll('.subcategory-input').forEach((input, index) => {
-                        if (index > 0) input.parentElement.remove();
-                    });
-                    window.location.href = './categoriesList.html';
+                data = JSON.parse(rawData);
+                if (data.status === 'success') {
+                    alert('Catégorie ajoutée avec succès.');
+                    window.location.href = './categoriesList.php';
                 } else {
-                    alert('Erreur : ' + data.message);
+                    alert('Erreur lors de l\'ajout de la catégorie.');
+                    console.error(data.message);
                 }
             } catch (error) {
                 console.error('Erreur de parsing JSON :', error);

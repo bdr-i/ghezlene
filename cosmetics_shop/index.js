@@ -132,8 +132,10 @@
             data: {
                 subcategory: selectedCategory
             },
-            success: function (response) {
+            success: function (response){
+                console.log(response);
                 try {
+                    console.log(response);
                     const res = JSON.parse(response);
                     updateProducts(res);
                 } catch (error) {

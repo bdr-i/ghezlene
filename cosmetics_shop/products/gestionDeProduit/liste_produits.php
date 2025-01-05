@@ -130,9 +130,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="editProductSubcategory">Sous-catégorie (optionnel)</label>
+                            <label for="editProductSubcategory">Sous-catégorie</label>
                             <select class="form-control" id="editProductSubcategory">
-                                <option value="">Aucune</option>
                                 <!-- Les sous-catégories seront injectées ici dynamiquement -->
                             </select>
                         </div>

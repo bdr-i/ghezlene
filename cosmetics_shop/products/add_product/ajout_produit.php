@@ -64,9 +64,6 @@
                 <label for="productCategory">Catégorie</label>
                 <select class="form-control" id="productCategory" name="productCategory" onchange="updateSubcategories()">
                     <option value="">Sélectionner une catégorie</option>
-                    <option value="1">Maquillage</option>
-                    <option value="2">Parfum</option>
-                    <option value="3">Soins</option>
                 </select>
                 <div class="error" id="productCategoryError"></div>
             </div>
@@ -100,26 +97,48 @@
     </footer>
     
     <script>
-        const categories = {
-            "1": {"name": "Maquillage", "subcategories": [{"id": "1", "name": "Rouge à lèvres"}, {"id": "2", "name": "Palette de maquillage"}, {"id": "3", "name": "Mascara"}]},
-            "2": {"name": "Parfum", "subcategories": [{"id": "4", "name": "Brume corporelle"}]},
-            "3": {"name": "Soins", "subcategories": [{"id": "5", "name": "Sérum anti-âge"}]}
-        };
+        function loadCategories() {
+            fetch('../../api/categories/getAllCategories.php')
+                .then(response => response.json())
+                .then(categories => {
+                    const categorySelect = document.getElementById('productCategory');
+                    console.log(categories);
+                    categorySelect.innerHTML = '<option value="">Sélectionner une catégorie</option>';
+                    
+                    // Iterate over the object values
+                    Object.values(categories).forEach(category => {
+                        const option = document.createElement('option');
+                        option.value = category.id;
+                        option.textContent = category.name;
+                        categorySelect.appendChild(option);
+                    });
+                }
+            )
+                .catch(error => console.error('Erreur lors du chargement des catégories:', error));
+        }
+
 
         function updateSubcategories() {
             const categoryId = document.getElementById('productCategory').value;
             const subcategorySelect = document.getElementById('productSubcategory');
             subcategorySelect.innerHTML = '<option value="">Sélectionner une sous-catégorie</option>';
 
-            if (categories[categoryId]) {
-                categories[categoryId].subcategories.forEach(subcategory => {
-                    const option = document.createElement('option');
-                    option.value = subcategory.id;
-                    option.textContent = subcategory.name;
-                    subcategorySelect.appendChild(option);
-                });
+            if (categoryId) {
+                fetch(`../../api/categories/getSubcategoriesByCategory.php?category_id=${categoryId}`)
+                    .then(response => response.json())
+                    .then(subcategories => {
+                        subcategories.forEach(subcategory => {
+                            const option = document.createElement('option');
+                            option.value = subcategory.id;
+                            option.textContent = subcategory.subcategory_name;
+                            subcategorySelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Erreur lors du chargement des sous-catégories:', error));
             }
         }
+
+        document.addEventListener('DOMContentLoaded', loadCategories);
     </script>
 </body>
 </html>

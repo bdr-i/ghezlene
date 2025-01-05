@@ -189,6 +189,7 @@
                     contentType: "application/json",
                     data: JSON.stringify({ id, name, subcategories }),
                     success: (response) => {
+                        console.log(id, name, subcategories);
                         console.log(response);
                         const data = JSON.parse(response);
                         if (data.status === "success") {

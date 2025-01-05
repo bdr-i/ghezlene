@@ -342,8 +342,8 @@
                         success: function (response) {
                             try {
                                 const res = JSON.parse(response);
-                                console.log(res.length);
-                                if (res.lenght === undefined) {
+                                if (res.lenght === 0) {
+                                    console.log("gbh");
                                     alert('Aucun produit trouvé pour cette catégorie.');
                                     return;
                                 }
